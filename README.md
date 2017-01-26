@@ -3,6 +3,13 @@
 ###Procesos de Desarrollo de Software - PDSW
 ####Ejercicio - Patrones estructurales
 
+##### Trabajo individual o en parejas
+
+##### Entregables
+
+* Diseño de la solución (impreso): en la clase del martes.
+* Implementación: antes del próximo laboratorio.
+
 
 Se le ha dado acceso a los fuentes de un nuevo navegador Web llamado 'Super-Web Browser'. Éste aún está en fase experimental, por lo que aún no carga correctamente algunas páginas (en especial las que tengan hojas de estilo).
 
