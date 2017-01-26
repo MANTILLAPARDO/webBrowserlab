@@ -12,6 +12,12 @@ Este navegador Web depende de una serie de componentes desarrollados por la orga
 
 ![](img/model.png)
 
+```javascript
+mvn compile
+mvn exec:java -Dexec.mainClass="co.edu.eci.webbrowser.SuperWebBrowser"
+
+```
+
 La tarea que se la encomendado es, aplicando patrones estructurales, lograr que el navegador maneje diferentes mecanismos de filtrado de contenidos, pensando en diferentes perfiles:
 
 * Filtrado en línea para niños. Cuando se carga un contenido de la red, palabras como 'bomba', 'explosivo', y 'violencia' son reemplazadas por asteriscos (el resto del contenido será presentado tal cual).
