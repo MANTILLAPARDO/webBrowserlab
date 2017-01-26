@@ -10,7 +10,7 @@ Se le ha dado acceso a los fuentes de un nuevo navegador Web llamado 'Super-Web 
 
 Este navegador Web depende de una serie de componentes desarrollados por la organización 'darkweb', sobre los cuales usted no tiene acceso (se tienen como dependencia de Maven):
 
-![](img/model.png)
+![](img/Model.png)
 
 ```javascript
 mvn compile
