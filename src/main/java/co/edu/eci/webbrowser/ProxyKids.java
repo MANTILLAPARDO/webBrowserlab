@@ -38,7 +38,7 @@ public class ProxyKids implements SiteContentReader {
            }
         }
            
-        
+        System.out.println(linea);
         return linea;
     }
 

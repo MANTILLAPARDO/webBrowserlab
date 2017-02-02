@@ -41,17 +41,15 @@ public class ProxyWork implements SiteContentReader {
         String linea = null;
         linea = contenido.get(cont);
         cont++;
-        if (cont+1 == contenido.size()){
+        if (cont+1 > contenido.size()){
             tieneMasLineas = false;
         }
-        
-        System.out.println(linea);
         return linea;
     }
 
     @Override
     public boolean hasMoreLines() {
-       return original.hasMoreLines();
+       return tieneMasLineas;
     }
     
     private boolean puedeMostrar(){
@@ -68,16 +66,14 @@ public class ProxyWork implements SiteContentReader {
         return !(contadores[0]>9 || contadores[1]>9 || contadores[2]>9);
     }
     
-    private void llenarPaginaRestringida(){
+    private void llenarPaginaRestringida()throws IOException{
         String linea = null;
-        try{
-            original = extractor.extract("http://personalylaboral.com/procrastinacion/");
-        }
-        catch(IOException e){      
-        }
-        contenido.clear();
-        while(!(linea.contains("<p><span id=\"more-16\"></span></p>"))){
+        original=null;
+        original = extractor.extract("http://personalylaboral.com/procrastinacion/");
+        contenido=new ArrayList<String>();
+        while(original.hasMoreLines()){
             linea = original.getNextLine();
+            System.out.println(linea);
             contenido.add(linea);
         }
         contenido.add("</html>");
