@@ -9,6 +9,7 @@ import java.net.MalformedURLException;
 import javafx.scene.web.WebEngine;
 import org.darkweb.utils.*;
 import org.darkweb.uicomponents.WebEngineSingleton;
+import java.util.*;
 /**
  *
  * @author andres
@@ -17,38 +18,68 @@ public class ProxyWork implements SiteContentReader {
     SiteContentReader original;
     WebDataExtractor extractor;
     int[] contadores;
+    ArrayList<String> contenido;
+    private boolean mostrar;
+    private int cont =0;
+    boolean tieneMasLineas = true;
     public ProxyWork(WebDataExtractor extractor,String url)throws IOException{
+        contadores=new int[3];
+        contenido = new ArrayList<String>();
         this.extractor=extractor;
         this.original=extractor.extract(url);
-        contadores=new int[3];
+        mostrar = this.puedeMostrar();
+        if(!mostrar){
+            llenarPaginaRestringida();
+        }
+        
+        
     }
 
 
     @Override
     public String getNextLine() {
-        String linea=null;
-        if(original.hasMoreLines()){
-           linea=original.getNextLine();
-           if(linea.contains("juego")||linea.contains("Juego"))contadores[0]+=1;
-           if(linea.contains("apuesta")||linea.contains("Apuesta"))contadores[1]+=1;
-           if(linea.contains("pirater\\u00eda")||linea.contains("Pirater\\u00eda"))contadores[2]+=1;
-           if(contadores[0]>9||contadores[1]>9||contadores[2]>9){
-               extractor.extract()
-               linea=linea.replaceAll("bomba", "*****");
-               linea=linea.replaceAll("explosivo", "*********");
-               linea=linea.replaceAll("Bomba", "*****");
-               linea=linea.replaceAll("Explosivo", "*********");
-               linea=linea.replaceAll("violencia", "*********");
-               linea=linea.replaceAll("Violencia", "*********");
-           }
+        String linea = null;
+        linea = contenido.get(cont);
+        cont++;
+        if (cont+1 == contenido.size()){
+            tieneMasLineas = false;
         }
-           
         
+        System.out.println(linea);
         return linea;
     }
 
     @Override
     public boolean hasMoreLines() {
        return original.hasMoreLines();
+    }
+    
+    private boolean puedeMostrar(){
+        String linea=null;
+        while(original.hasMoreLines()){
+        if(original.hasMoreLines()){
+           linea=original.getNextLine();
+           contenido.add(linea);
+           if(linea.contains("juego")||linea.contains("Juego"))contadores[0]+=1;
+           if(linea.contains("apuesta")||linea.contains("Apuesta"))contadores[1]+=1;
+           if(linea.contains("pirater\\u00eda")||linea.contains("Pirater\\u00eda"))contadores[2]+=1;
+        }
+        }
+        return !(contadores[0]>9 || contadores[1]>9 || contadores[2]>9);
+    }
+    
+    private void llenarPaginaRestringida(){
+        String linea = null;
+        try{
+            original = extractor.extract("http://personalylaboral.com/procrastinacion/");
+        }
+        catch(IOException e){      
+        }
+        contenido.clear();
+        while(!(linea.contains("<p><span id=\"more-16\"></span></p>"))){
+            linea = original.getNextLine();
+            contenido.add(linea);
+        }
+        contenido.add("</html>");
     }
 }
