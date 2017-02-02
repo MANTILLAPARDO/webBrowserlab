@@ -22,12 +22,13 @@ public class ProxyWork implements SiteContentReader {
     private boolean mostrar;
     private int cont =0;
     boolean tieneMasLineas = true;
-    public ProxyWork(WebDataExtractor extractor,String url)throws IOException{
+    protected ProxyWork(WebDataExtractor extractor,String url)throws IOException{
         contadores=new int[3];
         contenido = new ArrayList<String>();
         this.extractor=extractor;
         this.original=extractor.extract(url);
         mostrar = this.puedeMostrar();
+        System.out.println(mostrar);
         if(!mostrar){
             llenarPaginaRestringida();
         }
@@ -55,13 +56,12 @@ public class ProxyWork implements SiteContentReader {
     private boolean puedeMostrar(){
         String linea=null;
         while(original.hasMoreLines()){
-        if(original.hasMoreLines()){
            linea=original.getNextLine();
+           System.out.println(linea);
            contenido.add(linea);
            if(linea.contains("juego")||linea.contains("Juego"))contadores[0]+=1;
            if(linea.contains("apuesta")||linea.contains("Apuesta"))contadores[1]+=1;
            if(linea.contains("pirater\\u00eda")||linea.contains("Pirater\\u00eda"))contadores[2]+=1;
-        }
         }
         return !(contadores[0]>9 || contadores[1]>9 || contadores[2]>9);
     }

@@ -37,8 +37,6 @@ public class ProxyKids implements SiteContentReader {
                linea=linea.replaceAll("Violencia", "*********");
            }
         }
-           
-        System.out.println(linea);
         return linea;
     }
 

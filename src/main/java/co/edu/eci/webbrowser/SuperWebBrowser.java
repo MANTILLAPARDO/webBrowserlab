@@ -46,7 +46,7 @@ public class SuperWebBrowser extends Application {
         
         WebView myBrowser = new WebView();
         
-        WebEngineSingleton.getInstance().loadContent(myBrowser.getEngine(), new ProxyWork(new WebDataExtractor(),"http://www.example.com"));
+        WebEngineSingleton.getInstance().loadContent(myBrowser.getEngine(), ProxyFactory.getInstance('W',"http://www.example.com"));
 
         
         BorderPane root = new BorderPane();
@@ -56,7 +56,7 @@ public class SuperWebBrowser extends Application {
             public void handle(KeyEvent ke) {
                 if (ke.getCode().equals(KeyCode.ENTER)) {
                     try {
-                        WebEngineSingleton.getInstance().loadContent(myBrowser.getEngine(),new ProxyWork( new WebDataExtractor(),tf.getText()));
+                        WebEngineSingleton.getInstance().loadContent(myBrowser.getEngine(),ProxyFactory.getInstance('W',tf.getText()));
                         primaryStage.setTitle("Super-Web Browser. -"+tf.getText());
                     } catch (IOException ex) {                        
                         Logger.getLogger(SuperWebBrowser.class.getName()).log(Level.SEVERE, null, ex);
