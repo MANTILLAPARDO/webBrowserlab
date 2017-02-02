@@ -14,6 +14,9 @@ import java.util.*;
  *
  * @author andres
  */
+/*
+Proxy generado para navegacion en el trabajo, restringe el acceso a sitios que presentan mas de 10 veces "juego", "apuesta" o "piratería"
+*/
 public class ProxyWork implements SiteContentReader {
     SiteContentReader original;
     WebDataExtractor extractor;
@@ -28,7 +31,6 @@ public class ProxyWork implements SiteContentReader {
         this.extractor=extractor;
         this.original=extractor.extract(url);
         mostrar = this.puedeMostrar();
-        System.out.println(mostrar);
         if(!mostrar){
             llenarPaginaRestringida();
         }
@@ -57,7 +59,6 @@ public class ProxyWork implements SiteContentReader {
         String linea=null;
         while(original.hasMoreLines()){
            linea=original.getNextLine();
-           System.out.println(linea);
            contenido.add(linea);
            if(linea.contains("juego")||linea.contains("Juego"))contadores[0]+=1;
            if(linea.contains("apuesta")||linea.contains("Apuesta"))contadores[1]+=1;

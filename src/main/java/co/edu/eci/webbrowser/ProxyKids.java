@@ -13,6 +13,9 @@ import org.darkweb.uicomponents.WebEngineSingleton;
  *
  * @author andres
  */
+/*
+Proxy generado para navegacion de niños, el cual censura las palabras "bomba", "violencia" y "explosivo"
+*/
 public class ProxyKids implements SiteContentReader {
     SiteContentReader original;
     WebDataExtractor extractor;
