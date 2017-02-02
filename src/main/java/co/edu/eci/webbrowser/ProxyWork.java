@@ -69,11 +69,15 @@ public class ProxyWork implements SiteContentReader {
     private void llenarPaginaRestringida()throws IOException{
         String linea = null;
         original=null;
+        contenido=null;
         original = extractor.extract("http://personalylaboral.com/procrastinacion/");
         contenido=new ArrayList<String>();
-        while(original.hasMoreLines()){
+        boolean corte=true;
+        while(original.hasMoreLines()&&corte){
             linea = original.getNextLine();
-            System.out.println(linea);
+            if (linea.contains("<p><span id=\"more-16\"></span></p>")){
+                corte=false;
+            }
             contenido.add(linea);
         }
         contenido.add("</html>");
